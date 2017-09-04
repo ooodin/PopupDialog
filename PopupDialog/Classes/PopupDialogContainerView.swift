@@ -32,6 +32,14 @@ final public class PopupDialogContainerView: UIView {
 
     // MARK: - Appearance
 
+    /// The insets of the popup dialog
+    public var contenInsets: UIEdgeInsets? {
+        get { return self.contenInsets }
+        set {
+            self.contenInsets = newValue
+        }
+    }
+    
     /// The background color of the popup dialog
     override public dynamic var backgroundColor: UIColor? {
         get { return container.backgroundColor }
@@ -155,8 +163,11 @@ final public class PopupDialogContainerView: UIView {
         let views = ["shadowContainer": shadowContainer, "container": container, "stackView": stackView]
         var constraints = [NSLayoutConstraint]()
 
+        let leftInset: CGFloat = contenInsets?.left ?? 10
+        let rightInset: CGFloat = contenInsets?.right ?? 10
+        
         // Shadow container constraints
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=10,==20@900)-[shadowContainer(<=340,>=300)]-(>=10,==20@900)-|", options: [], metrics: nil, views: views)
+        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=\(leftInset),==20@900)-[shadowContainer(<=340,>=300)]-(>=\(rightInset),==20@900)-|", options: [], metrics: nil, views: views)
         constraints += [NSLayoutConstraint(item: shadowContainer, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)]
         centerYConstraint = NSLayoutConstraint(item: shadowContainer, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         constraints.append(centerYConstraint!)
