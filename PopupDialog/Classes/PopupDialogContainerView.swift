@@ -33,12 +33,7 @@ final public class PopupDialogContainerView: UIView {
     // MARK: - Appearance
 
     /// The insets of the popup dialog
-    public var contenInsets: UIEdgeInsets? {
-        get { return self.contenInsets }
-        set {
-            self.contenInsets = newValue
-        }
-    }
+    public var contenInsets: UIEdgeInsets?
     
     /// The background color of the popup dialog
     override public dynamic var backgroundColor: UIColor? {
