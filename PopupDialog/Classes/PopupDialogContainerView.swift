@@ -30,11 +30,11 @@ import UIKit
 /// The main view of the popup dialog
 final public class PopupDialogContainerView: UIView {
 
+    /// The insets of the popup dialog
+    internal var insets: UIEdgeInsets?
+    
     // MARK: - Appearance
 
-    /// The insets of the popup dialog
-    public var contenInsets: UIEdgeInsets?
-    
     /// The background color of the popup dialog
     override public dynamic var backgroundColor: UIColor? {
         get { return container.backgroundColor }
@@ -136,8 +136,9 @@ final public class PopupDialogContainerView: UIView {
 
     // MARK: - Initializers
 
-    internal override init(frame: CGRect) {
+    internal init(frame: CGRect, insets: UIEdgeInsets) {
         super.init(frame: frame)
+        self.insets = insets
         setupViews()
     }
 
@@ -158,8 +159,8 @@ final public class PopupDialogContainerView: UIView {
         let views = ["shadowContainer": shadowContainer, "container": container, "stackView": stackView]
         var constraints = [NSLayoutConstraint]()
 
-        let leftInset: CGFloat = contenInsets?.left ?? 10
-        let rightInset: CGFloat = contenInsets?.right ?? 10
+        let leftInset: CGFloat = insets?.left ?? 10
+        let rightInset: CGFloat = insets?.right ?? 10
         
         // Shadow container constraints
         constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=\(leftInset),==20@900)-[shadowContainer(<=340,>=300)]-(>=\(rightInset),==20@900)-|", options: [], metrics: nil, views: views)

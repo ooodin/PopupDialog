@@ -57,6 +57,9 @@ final public class PopupDialog: UIViewController {
     /// Keyboard height
     internal var keyboardHeight: CGFloat? = nil
 
+    /// The content insets
+    fileprivate var insets: UIEdgeInsets = UIEdgeInsets()
+    
     // MARK: Public
 
     /// The content view of the popup dialog
@@ -87,6 +90,7 @@ final public class PopupDialog: UIViewController {
                 buttonAlignment: UILayoutConstraintAxis = .vertical,
                 transitionStyle: PopupDialogTransitionStyle = .bounceUp,
                 gestureDismissal: Bool = true,
+                insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
                 completion: (() -> Void)? = nil) {
 
         // Create and configure the standard popup dialog view
@@ -96,7 +100,7 @@ final public class PopupDialog: UIViewController {
         viewController.image       = image
 
         // Call designated initializer
-        self.init(viewController: viewController, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, gestureDismissal: gestureDismissal, completion: completion)
+        self.init(viewController: viewController, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, gestureDismissal: gestureDismissal, insets: insets, completion: completion)
     }
 
     /*!
@@ -115,10 +119,12 @@ final public class PopupDialog: UIViewController {
         buttonAlignment: UILayoutConstraintAxis = .vertical,
         transitionStyle: PopupDialogTransitionStyle = .bounceUp,
         gestureDismissal: Bool = true,
+        insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
         completion: (() -> Void)? = nil) {
 
         self.viewController = viewController
         self.completion = completion
+        self.insets = insets
         super.init(nibName: nil, bundle: nil)
 
         // Init the presentation manager
@@ -176,7 +182,7 @@ final public class PopupDialog: UIViewController {
 
     /// Replaces controller view with popup view
     public override func loadView() {
-        view = PopupDialogContainerView(frame: UIScreen.main.bounds)
+        view = PopupDialogContainerView(frame: UIScreen.main.bounds, insets: self.insets)
     }
 
     public override func viewWillAppear(_ animated: Bool) {
